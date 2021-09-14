@@ -4,7 +4,7 @@ class Constants {
   static const ICON_PATH = 'assets/icons/';
 
   //image assets funstion
-  static String imageAsset(img) => "$IMAGE_PATH$img";
+  static String imageAsset(String img) => "$IMAGE_PATH$img";
   //image assets funstion
-  static String iconAsset(img) => "$ICON_PATH$img";
+  static String iconAsset(String img) => "$ICON_PATH$img";
 }
