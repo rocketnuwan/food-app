@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/screens/login_screen/login_page_screen.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/constants.dart';
 import 'package:food_app/utils/util_functions.dart';
@@ -36,58 +37,62 @@ class _GettingStartedState extends State<GettingStarted> {
 
   @override
   Widget build(BuildContext context) {
+    final windowSize = UtilFunctions.windoSize(context);
     return Scaffold(
-      body: Container(
-        width: UtilFunctions.windoSize(context).width,
-        height: UtilFunctions.windoSize(context).height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                  height: UtilFunctions.windoSize(context).height / 2,
-
-                  //autoPlay: true,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                    });
-                  }),
-              carouselController: carouselController,
-              items: list.map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      child: Column(
-                        children: [i],
+      body: SingleChildScrollView(
+        child: Container(
+          width: windowSize.width,
+          height: windowSize.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                    height: windowSize.height / 2,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 6),
+                    viewportFraction: 0.9,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                      });
+                    }),
+                carouselController: carouselController,
+                items: list.map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: Column(
+                          children: [i],
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: list.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    onTap: () => carouselController.animateToPage(entry.key),
+                    child: Container(
+                      width: 12.0,
+                      height: 12.0,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == entry.key ? primaryColor : greyColor,
                       ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: list.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => carouselController.animateToPage(entry.key),
-                  child: Container(
-                    width: 12.0,
-                    height: 12.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == entry.key ? primaryColor : greyColor,
                     ),
-                  ),
-                );
-              }).toList(),
-            ),
-            BottomSection(
-              ontap: () => carouselController.nextPage(),
-            ),
-          ],
+                  );
+                }).toList(),
+              ),
+              BottomSection(
+                ontap: () => carouselController.nextPage(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -115,13 +120,15 @@ class SliderItem extends StatelessWidget {
         ),
         Text(text1, style: TextStyle(fontSize: 22)),
         SizedBox(
-          height: 5,
+          height: 6,
         ),
         Text(text2,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
               color: greyColor,
+              letterSpacing: 1,
+              wordSpacing: 2,
             )),
       ],
     );
@@ -138,12 +145,13 @@ class BottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final windowSize = UtilFunctions.windoSize(context);
     return Container(
       alignment: Alignment.bottomCenter,
       child: Stack(
         children: [
           Container(
-            width: UtilFunctions.windoSize(context).width,
+            width: windowSize.width,
             child: Image.asset(
               Constants.imageAsset("bottom.png"),
               fit: BoxFit.fitWidth,
@@ -171,7 +179,10 @@ class BottomSection extends StatelessWidget {
                       )),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    UtilFunctions.navigator(context, LoginPageScreen());
+                  },
+                  style: TextButton.styleFrom(primary: Color(0xffFF7000)),
                   child: Text(
                     "skip",
                     style: TextStyle(

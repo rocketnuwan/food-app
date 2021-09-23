@@ -21,9 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Widget build(BuildContext context) {
+    final windowSize = UtilFunctions.windoSize(context);
     return Scaffold(
       body: Container(
-        width: UtilFunctions.windoSize(context).width,
+        width: windowSize.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
