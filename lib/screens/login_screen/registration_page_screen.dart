@@ -1,13 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/compononets/customTextFeild.dart';
+import 'package:food_app/compononets/awesom_dialog.dart';
+import 'package:food_app/compononets/custom_header.dart';
+import 'package:food_app/compononets/custom_textFeild.dart';
+import 'package:food_app/compononets/custom_button.dart';
+import 'package:food_app/screens/home_screen/home.dart';
 import 'package:food_app/screens/login_screen/login_page_screen.dart';
 import 'package:food_app/utils/app_colors.dart';
-import 'package:food_app/utils/constants.dart';
 import 'package:food_app/utils/util_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationPageScreen extends StatefulWidget {
   const RegistrationPageScreen({Key? key}) : super(key: key);
@@ -22,6 +26,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
   final _password = TextEditingController();
   final _name = TextEditingController();
   final _phone = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,10 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
             width: windowSize.width,
             child: Column(
               children: [
-                Header(),
+                Header(
+                  head1: "Registration",
+                  head2: "Create Account",
+                ),
                 SizedBox(
                   height: 8,
                 ),
@@ -166,33 +174,39 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                 SizedBox(
                   height: 21,
                 ),
-                Container(
-                  width: windowSize.width,
-                  height: 60,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (inputValidation()) {
-                        print("sussess");
-                      } else {
-                        print("error");
+                CustomButton(
+                  windowSize: windowSize,
+                  name: "Sign Up",
+                  onPress: () async {
+                    if (inputValidation()) {
+                      try {
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .createUserWithEmailAndPassword(
+                          email: _email.text,
+                          password: _password.text,
+                        );
+
+                        UtilFunctions.navigator(context, Home());
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          AwesomDialoBox(context, 'Error...!',
+                                  "The password provided is too weak..............")
+                              .show();
+                        } else if (e.code == 'email-already-in-use') {
+                          AwesomDialoBox(context, "Error...!",
+                                  "The account already exists for that email.")
+                              .show();
+                        }
+                      } catch (e) {
+                        print(e);
                       }
-                    },
-                    child: Text(
-                      "Sign Up",
-                      style: GoogleFonts.poppins(
-                        color: primaryFontColor,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        primary: primaryColor,
-                        elevation: 8,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                  ),
+                    } else {
+                      AwesomDialoBox(context, "Error...!",
+                              "Please check your input details.")
+                          .show();
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 20,
@@ -243,51 +257,5 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
     }
 
     return isValid;
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 220,
-      child: Stack(
-        children: [
-          Image.asset(
-            Constants.imageAsset("header.png"),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 65),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Column(
-                children: [
-                  Text(
-                    "Registration",
-                    style: GoogleFonts.poppins(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: primaryFontColor,
-                    ),
-                  ),
-                  Text(
-                    "Create Account",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: primaryFontColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

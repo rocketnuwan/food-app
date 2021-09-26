@@ -7,7 +7,7 @@ class CustomTextFeild extends StatelessWidget {
       : super(key: key);
 
   final hint;
-  var controller = TextEditingController();
+  var controller;
   @override
   Widget build(BuildContext context) {
     return TextField(

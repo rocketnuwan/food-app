@@ -1,9 +1,14 @@
 import 'dart:ui';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/compononets/customTextFeild.dart';
+import 'package:food_app/compononets/awesom_dialog.dart';
+import 'package:food_app/compononets/custom_header.dart';
+import 'package:food_app/compononets/custom_textFeild.dart';
+import 'package:food_app/compononets/custom_button.dart';
+import 'package:food_app/screens/home_screen/home.dart';
 import 'package:food_app/screens/login_screen/registration_page_screen.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/constants.dart';
@@ -33,7 +38,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
             width: windowSize.width,
             child: Column(
               children: [
-                Header(),
+                Header(head1: "Login", head2: "Access account"),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -151,27 +156,38 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 SizedBox(
                   height: 21,
                 ),
-                Container(
-                  width: windowSize.width,
-                  height: 60,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Sign In",
-                      style: GoogleFonts.poppins(
-                        color: primaryFontColor,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        primary: primaryColor,
-                        elevation: 8,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                  ),
+                CustomButton(
+                  windowSize: windowSize,
+                  name: "Sign In",
+                  onPress: () async {
+                    if (inputValidation()) {
+                      try {
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .signInWithEmailAndPassword(
+                          email: _email.text,
+                          password: _password.text,
+                        );
+                        UtilFunctions.navigator(context, Home());
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          //print('No user found for that email.');
+                          AwesomDialoBox(context, "Error...!",
+                                  'No user found for that email.')
+                              .show();
+                        } else if (e.code == 'wrong-password') {
+                          //print('Wrong password provided for that user.');
+                          AwesomDialoBox(context, "Error...!",
+                                  'Wrong password provided for that user.')
+                              .show();
+                        }
+                      }
+                    } else {
+                      AwesomDialoBox(context, "Error...!",
+                              'Please check your input Details..!')
+                          .show();
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 20,
@@ -218,50 +234,5 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     }
 
     return isValid;
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          Image.asset(
-            Constants.imageAsset("header.png"),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 65),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Column(
-                children: [
-                  Text(
-                    "Login",
-                    style: GoogleFonts.poppins(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: primaryFontColor,
-                    ),
-                  ),
-                  Text(
-                    "Access account",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: primaryFontColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
