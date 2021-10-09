@@ -1,17 +1,19 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/compononets/awesom_dialog.dart';
 import 'package:food_app/compononets/custom_header.dart';
+import 'package:food_app/compononets/custom_lorder.dart';
 import 'package:food_app/compononets/custom_textFeild.dart';
 import 'package:food_app/compononets/custom_button.dart';
-import 'package:food_app/screens/home_screen/home.dart';
+import 'package:food_app/controllers/auth_controller.dart';
 import 'package:food_app/screens/login_screen/login_page_screen.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/util_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class RegistrationPageScreen extends StatefulWidget {
   const RegistrationPageScreen({Key? key}) : super(key: key);
@@ -26,7 +28,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
   final _password = TextEditingController();
   final _name = TextEditingController();
   final _phone = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
+  bool isLoging = false;
 
   @override
   Widget build(BuildContext context) {
@@ -174,38 +176,37 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                 SizedBox(
                   height: 21,
                 ),
+               
+                isLoging ? CustomLorder() : 
                 CustomButton(
                   windowSize: windowSize,
                   name: "Sign Up",
                   onPress: () async {
+                    setState(() {
+                        isLoging=true;
+                      });
                     if (inputValidation()) {
-                      try {
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .createUserWithEmailAndPassword(
-                          email: _email.text,
-                          password: _password.text,
-                        );
-
-                        UtilFunctions.navigator(context, Home());
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          AwesomDialoBox(context, 'Error...!',
-                                  "The password provided is too weak..............")
-                              .show();
-                        } else if (e.code == 'email-already-in-use') {
-                          AwesomDialoBox(context, "Error...!",
-                                  "The account already exists for that email.")
-                              .show();
-                        }
-                      } catch (e) {
-                        print(e);
-                      }
-                    } else {
-                      AwesomDialoBox(context, "Error...!",
-                              "Please check your input details.")
-                          .show();
+                      
+                      await AuthController().registrationUser(
+                        context,
+                        _email.text,
+                        _password.text,
+                        _name.text,
+                        _phone.text,
+                      );
+                        
                     }
+                    else{
+                        CustomAwesomDialog().dialogBox(
+                        context,
+                        "Error...!",
+                        "Please check your input details.",
+                        DialogType.ERROR,
+                      );
+                    }
+                    setState(() {
+                        isLoging=false;
+                      });
                   },
                 ),
                 SizedBox(
@@ -242,6 +243,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
   }
 
   bool inputValidation() {
+    
     var isValid = false;
     if (_email.text.isEmpty ||
         _name.text.isEmpty ||
@@ -255,7 +257,11 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
     } else {
       isValid = true;
     }
-
+  
     return isValid;
   }
+
+  
 }
+
+

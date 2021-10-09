@@ -1,14 +1,16 @@
 import 'dart:ui';
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/compononets/awesom_dialog.dart';
 import 'package:food_app/compononets/custom_header.dart';
+import 'package:food_app/compononets/custom_lorder.dart';
 import 'package:food_app/compononets/custom_textFeild.dart';
 import 'package:food_app/compononets/custom_button.dart';
-import 'package:food_app/screens/home_screen/home.dart';
+import 'package:food_app/controllers/auth_controller.dart';
+import 'package:food_app/screens/login_screen/forgot_password_screen.dart';
 import 'package:food_app/screens/login_screen/registration_page_screen.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/constants.dart';
@@ -27,6 +29,9 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   bool _passwordVisible = true;
   final _email = TextEditingController();
   final _password = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  bool isLoging = false;
+  
   @override
   Widget build(BuildContext context) {
     final windowSize = UtilFunctions.windoSize(context);
@@ -150,43 +155,44 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                               borderRadius: BorderRadius.circular(15)),
                         ),
                       ),
+                      Container(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(onPressed: (){
+                    UtilFunctions.navigator(context, ForgotPassword());
+                  },
+                  child: Text("Forgot your password ?",
+                    style: TextStyle(fontSize: 14,color: greyColor)
+                    )
+                    ),
+                ),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 21,
                 ),
+                
+                isLoging ? CustomLorder() : 
                 CustomButton(
                   windowSize: windowSize,
                   name: "Sign In",
                   onPress: () async {
+                    setState(() {
+                      isLoging = true;
+                    });
                     if (inputValidation()) {
-                      try {
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .signInWithEmailAndPassword(
-                          email: _email.text,
-                          password: _password.text,
-                        );
-                        UtilFunctions.navigator(context, Home());
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          //print('No user found for that email.');
-                          AwesomDialoBox(context, "Error...!",
-                                  'No user found for that email.')
-                              .show();
-                        } else if (e.code == 'wrong-password') {
-                          //print('Wrong password provided for that user.');
-                          AwesomDialoBox(context, "Error...!",
-                                  'Wrong password provided for that user.')
-                              .show();
-                        }
-                      }
+                      await AuthController()
+                          .login(context, _email.text, _password.text);
                     } else {
-                      AwesomDialoBox(context, "Error...!",
-                              'Please check your input Details..!')
-                          .show();
+                      CustomAwesomDialog().dialogBox(
+                          context,
+                          "Error...!",
+                          'Please check your input Details..!',
+                          DialogType.ERROR);
                     }
+                    setState(() {
+                      isLoging = false;
+                    });
                   },
                 ),
                 SizedBox(
