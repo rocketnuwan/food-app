@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/compononets/awesom_dialog.dart';
 import 'package:food_app/compononets/custom_header.dart';
 import 'package:food_app/compononets/custom_lorder.dart';
+import 'package:food_app/compononets/custom_text.dart';
 import 'package:food_app/compononets/custom_textFeild.dart';
 import 'package:food_app/compononets/custom_button.dart';
 import 'package:food_app/controllers/auth_controller.dart';
@@ -13,7 +14,7 @@ import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/util_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class RegistrationPageScreen extends StatefulWidget {
   const RegistrationPageScreen({Key? key}) : super(key: key);
@@ -52,20 +53,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 11),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Name",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: primaryFontColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CustomText(text: "Name"),
                       SizedBox(
                         height: 6,
                       ),
@@ -76,20 +64,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                       SizedBox(
                         height: 6,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 11),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Email",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: primaryFontColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CustomText(text: "Email"),
                       SizedBox(
                         height: 6,
                       ),
@@ -100,20 +75,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 11),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Phone",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: primaryFontColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CustomText(text: "Phone"),
                       SizedBox(
                         height: 6,
                       ),
@@ -124,20 +86,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                       SizedBox(
                         height: 1,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 11),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Password",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: primaryFontColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CustomText(text: "Password"),
                       SizedBox(
                         height: 6,
                       ),

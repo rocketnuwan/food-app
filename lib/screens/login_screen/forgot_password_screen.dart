@@ -66,6 +66,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           'Please check your input Details..!',
                           DialogType.ERROR);
                     }
+                    
 
                       setState(() {
                         isLogng=false;

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/compononets/awesom_dialog.dart';
 import 'package:food_app/compononets/custom_header.dart';
 import 'package:food_app/compononets/custom_lorder.dart';
+import 'package:food_app/compononets/custom_text.dart';
 import 'package:food_app/compononets/custom_textFeild.dart';
 import 'package:food_app/compononets/custom_button.dart';
 import 'package:food_app/controllers/auth_controller.dart';
@@ -84,20 +85,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 11),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Email",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: primaryFontColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CustomText(text: "Email"),
                       SizedBox(
                         height: 6,
                       ),
@@ -108,20 +96,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       SizedBox(
                         height: 14,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 11),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Password",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: primaryFontColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      CustomText(text: "Password"),
                       SizedBox(
                         height: 6,
                       ),
@@ -192,6 +167,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     }
                     setState(() {
                       isLoging = false;
+
                     });
                   },
                 ),

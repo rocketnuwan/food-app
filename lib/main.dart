@@ -16,7 +16,7 @@ class Myapp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Food Delivary App",
-      home: SplashScreen(),
+        home: SplashScreen(),
     );
   }
 }

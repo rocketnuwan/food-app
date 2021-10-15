@@ -3,11 +3,17 @@ import 'package:food_app/utils/app_colors.dart';
 
 // ignore: must_be_immutable
 class CustomTextFeild extends StatelessWidget {
-  CustomTextFeild({Key? key, required this.hint, required this.controller})
+  CustomTextFeild({
+    Key? key,
+     required this.hint,
+      required this.controller,
+      this.widget
+      })
       : super(key: key);
 
-  final hint;
-  var controller;
+  final String hint;
+  final TextEditingController controller;
+  final Widget? widget;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -16,6 +22,7 @@ class CustomTextFeild extends StatelessWidget {
         fontSize: 16,
       ),
       decoration: InputDecoration(
+        prefixIcon: widget,
         fillColor: kwhite,
         filled: true,
         hintText: hint,

@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/compononets/awesom_dialog.dart';
 import 'package:food_app/controllers/db_controller.dart';
-import 'package:food_app/screens/home_screen/home.dart';
 import 'package:food_app/screens/login_screen/login_page_screen.dart';
+import 'package:food_app/screens/main_screens/home_screen/home.dart';
+import 'package:food_app/screens/main_screens/main_screen.dart';
 import 'package:food_app/utils/util_functions.dart';
 
 class AuthController {
@@ -66,7 +67,7 @@ class AuthController {
         password: _password,
       );
       if (userCredential.user != null) {
-        UtilFunctions.navigator(context, Home());
+        UtilFunctions.navigator(context, MainScreen());
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

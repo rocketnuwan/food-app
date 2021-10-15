@@ -4,11 +4,15 @@ import 'package:food_app/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key, required this.head1, required this.head2})
-      : super(key: key);
+  const Header({Key? key,
+    this.head1,
+    this.head2,
+    this.widget
+    }): super(key: key);
 
-  final head1;
-  final head2;
+  final String? head1;
+  final String? head2;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,7 @@ class Header extends StatelessWidget {
           Image.asset(
             Constants.imageAsset("header.png"),
           ),
+          widget == null ?
           Container(
             padding: EdgeInsets.only(top: 65),
             child: Align(
@@ -25,7 +30,7 @@ class Header extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    head1,
+                    head1 ?? "",
                     style: GoogleFonts.poppins(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
@@ -33,7 +38,7 @@ class Header extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    head2,
+                    head2 ?? "",
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -43,7 +48,8 @@ class Header extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          )
+          :widget!,
         ],
       ),
     );

@@ -10,7 +10,7 @@ class CustomLorder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpinKitCircle(
-      color: kblack,
+      color: greyColor,
       size: 60.0,
     );
   }
