@@ -5,12 +5,15 @@ import 'package:food_app/utils/app_colors.dart';
 class CustomLorder extends StatelessWidget {
   const CustomLorder({
     Key? key,
+    this.lcolor=greyColor
   }) : super(key: key);
+
+  final Color lcolor;
 
   @override
   Widget build(BuildContext context) {
     return SpinKitCircle(
-      color: greyColor,
+      color: lcolor,
       size: 60.0,
     );
   }

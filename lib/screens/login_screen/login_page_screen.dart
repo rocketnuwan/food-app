@@ -196,7 +196,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                 context, RegistrationPageScreen());
                           }),
                   ]),
-                )
+                ),
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),

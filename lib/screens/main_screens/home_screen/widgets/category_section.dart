@@ -61,26 +61,24 @@ class _CategoryTileState extends State<CategoryTile> {
             isSelected=!isSelected;
           });
         },
-        child: SizedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 65,
-                height: 65,
-                padding: EdgeInsets.all(17),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: isSelected ? korange : kwhite,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: CustomSVG(image: widget.svgName,
-                color: isSelected ? kwhite : greyColor,),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 65,
+              height: 65,
+              padding: EdgeInsets.all(17),
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: isSelected ? korange : kwhite,
+                borderRadius: BorderRadius.circular(15),
               ),
-              SizedBox(height: 4,),
-              CustomText(text: widget.catogeryName,fontSize: 13,)
-            ],
-          ),
+              child: CustomSVG(image: widget.svgName,
+              color: isSelected ? kwhite : greyColor,),
+            ),
+            SizedBox(height: 4,),
+            CustomText(text: widget.catogeryName,fontSize: 13,)
+          ],
         ),
       ),
     );

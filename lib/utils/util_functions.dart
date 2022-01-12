@@ -7,7 +7,7 @@ class UtilFunctions {
   }
 
   //go back function
-  static void goBack(BuildContext context, Widget widget) {
+  static void goBack(BuildContext context) {
     Navigator.of(context).pop();
   }
 

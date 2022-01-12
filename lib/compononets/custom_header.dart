@@ -6,12 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 class Header extends StatelessWidget {
   const Header({Key? key,
     this.head1,
-    this.head2,
-    this.widget
+    this.head2,this.widget,
     }): super(key: key);
 
   final String? head1;
   final String? head2;
+  
   final Widget? widget;
 
   @override
@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
     return Container(
       child: Stack(
         children: [
-          Image.asset(
+            Image.asset(
             Constants.imageAsset("header.png"),
           ),
           widget == null ?

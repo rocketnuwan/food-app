@@ -15,7 +15,6 @@ import 'package:food_app/utils/util_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
 
-
 class RegistrationPageScreen extends StatefulWidget {
   const RegistrationPageScreen({Key? key}) : super(key: key);
 
@@ -125,39 +124,36 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                 SizedBox(
                   height: 21,
                 ),
-               
-                isLoging ? CustomLorder() : 
-                CustomButton(
-                  windowSize: windowSize,
-                  name: "Sign Up",
-                  onPress: () async {
-                    setState(() {
-                        isLoging=true;
-                      });
-                    if (inputValidation()) {
-                      
-                      await AuthController().registrationUser(
-                        context,
-                        _email.text,
-                        _password.text,
-                        _name.text,
-                        _phone.text,
-                      );
-                        
-                    }
-                    else{
-                        CustomAwesomDialog().dialogBox(
-                        context,
-                        "Error...!",
-                        "Please check your input details.",
-                        DialogType.ERROR,
-                      );
-                    }
-                    setState(() {
-                        isLoging=false;
-                      });
-                  },
-                ),
+                isLoging
+                    ? CustomLorder()
+                    : CustomButton(
+                        windowSize: windowSize,
+                        name: "Sign Up",
+                        onPress: () async {
+                          setState(() {
+                            isLoging = true;
+                          });
+                          if (inputValidation()) {
+                            await AuthController().registrationUser(
+                              context,
+                              _email.text,
+                              _password.text,
+                              _name.text,
+                              _phone.text,
+                            );
+                          } else {
+                            CustomAwesomDialog().dialogBox(
+                              context,
+                              "Error...!",
+                              "Please check your input details.",
+                              DialogType.ERROR,
+                            );
+                          }
+                          setState(() {
+                            isLoging = false;
+                          });
+                        },
+                      ),
                 SizedBox(
                   height: 20,
                 ),
@@ -179,10 +175,15 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            UtilFunctions.goBack(context, LoginPageScreen());
+                            UtilFunctions.goBack(
+                              context,
+                            );
                           }),
                   ]),
-                )
+                ),
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
@@ -192,7 +193,6 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
   }
 
   bool inputValidation() {
-    
     var isValid = false;
     if (_email.text.isEmpty ||
         _name.text.isEmpty ||
@@ -206,11 +206,7 @@ class _RegistrationPageScreenState extends State<RegistrationPageScreen> {
     } else {
       isValid = true;
     }
-  
+
     return isValid;
   }
-
-  
 }
-
-

@@ -8,18 +8,22 @@ class CustomButton extends StatelessWidget {
     required this.windowSize,
     required this.name,
     required this.onPress,
+    this.buttonColor = primaryColor,
+    this.buttonMargin = 25,
   }) : super(key: key);
 
   final Size windowSize;
   final name;
   final Function() onPress;
+  final Color buttonColor;
+  final double buttonMargin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: windowSize.width,
       height: 60,
-      margin: EdgeInsets.symmetric(horizontal: 25),
+      margin: EdgeInsets.symmetric(horizontal: buttonMargin),
       child: ElevatedButton(
         onPressed: onPress,
         child: Text(
@@ -31,7 +35,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-            primary: primaryColor,
+            primary: buttonColor,
             elevation: 8,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),

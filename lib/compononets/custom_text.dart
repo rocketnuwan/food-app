@@ -11,6 +11,7 @@ class CustomText extends StatelessWidget {
     this.fontWeight,
     this.padding=11,
     this.alignment=Alignment.topLeft,
+    this.textAlign,
     }) : super(key: key);
 
   final String text;
@@ -19,6 +20,7 @@ class CustomText extends StatelessWidget {
   final FontWeight? fontWeight;
   final double padding;
   final Alignment alignment;
+  final TextAlign? textAlign;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,6 +29,7 @@ class CustomText extends StatelessWidget {
         alignment: alignment,
           child: Text(
             text,
+            textAlign: textAlign,
             style: GoogleFonts.poppins(
               fontSize: fontSize,
               fontWeight: fontWeight,

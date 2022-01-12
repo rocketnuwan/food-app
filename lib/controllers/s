@@ -1,0 +1,18 @@
+class Dog{
+	public void dogSleep(){
+		System.out.println("Dog is sleep");
+	}
+}
+
+class Puppy extends Dog{
+	public void puppyPlay(){
+		System.out.println("Puppuy is playing");
+	}
+	public static void main(String[]args){
+		Puppy p = new Puppy();
+		System.out.println(p.dogSleep)
+		System.out.println(p.puppyPlay)
+		
+	}
+	
+}
