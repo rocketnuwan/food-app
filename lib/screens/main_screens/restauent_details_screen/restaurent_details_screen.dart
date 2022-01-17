@@ -31,13 +31,6 @@ class _RestaurentDetailsScreenState extends State<RestaurentDetailsScreen> {
             children: [
               UpperSection(),
               RestaurentDetailsSection(),
-              SizedBox(
-                height: 22,
-              ),
-              CustomTitle(title: "Westway Food Menu"),
-              SizedBox(
-                height: 22,
-              ),
               ResCatagorySection(),
               BestProductsSection(),
               GestureDetector(

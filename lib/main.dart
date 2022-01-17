@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/screens/main_screens/cart_sceen/cart_screen.dart';
 import 'package:food_app/screens/main_screens/main_screen.dart';
+import 'package:food_app/screens/main_screens/tracking_screens/traking_screens.dart';
 import 'package:food_app/screens/splash_screen/splash_screen.dart';
 
 Future<void> main() async {
@@ -18,9 +19,10 @@ class Myapp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Food Delivary App",
-      // home: SplashScreen(),
+      //home: SplashScreen(),
       //home: MainScreen(),
-      home: CartScreen(),
+      //home: CartScreen(),
+      home: TrackingScreen(),
     );
   }
 }
