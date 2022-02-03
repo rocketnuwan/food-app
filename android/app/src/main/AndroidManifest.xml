@@ -1,12 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.food_app">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
    <application
         android:label="food_app"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         >
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDoy94o2OU3AsROvPtha-MocW6lnDp66KQ"/>
+               android:value="YOUR API"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

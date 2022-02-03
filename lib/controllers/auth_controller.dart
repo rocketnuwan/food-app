@@ -7,6 +7,7 @@ import 'package:food_app/controllers/db_controller.dart';
 import 'package:food_app/screens/login_screen/login_page_screen.dart';
 import 'package:food_app/screens/main_screens/home_screen/home.dart';
 import 'package:food_app/screens/main_screens/main_screen.dart';
+import 'package:food_app/screens/splash_screen/getting_started.dart';
 import 'package:food_app/utils/util_functions.dart';
 
 class AuthController {
@@ -22,26 +23,26 @@ class AuthController {
     String _phone,
   ) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email,
         password: _password,
       );
 
+      if (userCredential.user!.uid.isNotEmpty) {
+        await DatabaseController().saveUserDate(
+            _name, _email, _phone, _password, userCredential.user!.uid);
+      }
 
-    if(userCredential.user!.uid.isNotEmpty){
-      await DatabaseController().saveUserDate(_name, _email, _phone, _password,userCredential.user!.uid);
-    }  
-    
       CustomAwesomDialog().dialogBox(
           context,
           "Success...!",
           "Congratulations...! User Account created Now you can Login.",
           DialogType.SUCCES);
 
-      Future.delayed(Duration(seconds: 3), () {
-        UtilFunctions.navigator(context, LoginPageScreen());
-      });
+      // Future.delayed(Duration(seconds: 3), () {
+      //   //UtilFunctions.navigator(context, GettingStarted());
+      // });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         CustomAwesomDialog().dialogBox(
@@ -57,6 +58,7 @@ class AuthController {
       print(e);
     }
   }
+
   //user login function
   Future<void> login(
       BuildContext context, String _email, String _password) async {
@@ -66,9 +68,10 @@ class AuthController {
         email: _email,
         password: _password,
       );
-      if (userCredential.user != null) {
-        UtilFunctions.navigator(context, MainScreen());
-      }
+      // if (userCredential.user != null) {
+      //   UtilFunctions.navigator(context, MainScreen());
+      // }
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         CustomAwesomDialog().dialogBox(context, "Error...!",
@@ -80,30 +83,25 @@ class AuthController {
       }
     }
   }
+
   //send password reset email function
-    Future<void>? sendPasswordResetemail(
-      BuildContext context,String _email) async {
-      try {
-        await auth.sendPasswordResetEmail(email: _email);
-        CustomAwesomDialog().dialogBox(
-          context,
-          "Success...!",
-          "please check your email address.",
-          DialogType.SUCCES);
-          
-      } on FirebaseAuthException catch(e){
-        if (e.code=="invalid-email") {
-          CustomAwesomDialog().dialogBox(context, "Invalid Email...!",
+  Future<void>? sendPasswordResetemail(
+      BuildContext context, String _email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: _email);
+      CustomAwesomDialog().dialogBox(context, "Success...!",
+          "please check your email address.", DialogType.SUCCES);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "invalid-email") {
+        CustomAwesomDialog().dialogBox(context, "Invalid Email...!",
             'please enter valid email.', DialogType.ERROR);
-        }else{
-          CustomAwesomDialog().dialogBox(context, "Error...!",
-            e.toString(), DialogType.ERROR);
-        }
-      } 
-      catch (e) {
-        CustomAwesomDialog().dialogBox(context, "Error...!",
-            e.toString(), DialogType.ERROR);
+      } else {
+        CustomAwesomDialog()
+            .dialogBox(context, "Error...!", e.toString(), DialogType.ERROR);
       }
-      
+    } catch (e) {
+      CustomAwesomDialog()
+          .dialogBox(context, "Error...!", e.toString(), DialogType.ERROR);
     }
+  }
 }

@@ -173,8 +173,9 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final windowSize = UtilFunctions.windoSize(context);
     return SizedBox(
-      height: 529,
+      height: windowSize.height / 10 * 7,
       child: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,

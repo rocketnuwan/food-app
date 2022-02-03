@@ -25,67 +25,68 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-              //height: UtilFunctions.windoSize(context).height,
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              UpperSection(),
-              Container(
-                margin: EdgeInsets.only(bottom: 20, left: 22, right: 22),
-                width: double.infinity,
-                height: 111,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: korange,
+          child: FadeInLeft(
+            child: Container(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UpperSection(),
+                Container(
+                  margin: EdgeInsets.only(bottom: 20, left: 22, right: 22),
+                  width: double.infinity,
+                  height: 111,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: korange,
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 23,
+                        left: 23,
+                        child: Icon(
+                          Icons.location_on_outlined,
+                          color: kwhite,
+                        ),
+                      ),
+                      Positioned(
+                        top: 23,
+                        left: 60,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text: "Deliverd to",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: kwhite,
+                            ),
+                            CustomText(
+                              text: "242 ST Marks Ewe,\n Inland",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: kwhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 45,
+                        right: 17,
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: kwhite,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 23,
-                      left: 23,
-                      child: Icon(
-                        Icons.location_on_outlined,
-                        color: kwhite,
-                      ),
-                    ),
-                    Positioned(
-                      top: 23,
-                      left: 60,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: "Deliverd to",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: kwhite,
-                          ),
-                          CustomText(
-                            text: "242 ST Marks Ewe,\n Inland",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: kwhite,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 45,
-                      right: 17,
-                      child: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: kwhite,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              CartItems(),
-              PromoCode(),
-              FooterSection(),
-            ],
-          )),
+                CartItems(),
+                PromoCode(),
+                FooterSection(),
+              ],
+            )),
+          ),
         ),
       ),
     );

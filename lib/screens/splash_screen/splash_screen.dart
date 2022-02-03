@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/providers/user_provider.dart';
 import 'package:food_app/screens/splash_screen/getting_started.dart';
 import 'package:food_app/utils/constants.dart';
 import 'package:food_app/utils/util_functions.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
+      Provider.of<UserProvider>(context, listen: false).initilizeUser(context);
       UtilFunctions.navigator(context, GettingStarted());
     });
   }

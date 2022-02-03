@@ -16,4 +16,10 @@ class UtilFunctions {
     final size = MediaQuery.of(context).size;
     return size;
   }
+
+//navigation function push and remove
+  static void pushRemoveNavigator(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => widget), (route) => false);
+  }
 }
