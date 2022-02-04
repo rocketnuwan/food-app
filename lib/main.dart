@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/providers/auth/login_provider.dart';
 import 'package:food_app/providers/auth/registration_provider.dart';
+import 'package:food_app/providers/home/category_provider.dart';
+import 'package:food_app/providers/home/reasturent_provider.dart';
 import 'package:food_app/providers/user_provider.dart';
 import 'package:food_app/screens/main_screens/cart_sceen/cart_screen.dart';
 import 'package:food_app/screens/main_screens/main_screen.dart';
@@ -25,7 +27,13 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ReasturentProvider(),
+        ),
       ],
       child: Myapp(),
     ),

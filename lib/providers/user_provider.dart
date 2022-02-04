@@ -25,9 +25,7 @@ class UserProvider extends ChangeNotifier {
         UtilFunctions.navigator(context, GettingStarted());
       } else {
         Logger().i('User is signed in!');
-
         await fetuchSingleUser(user.uid);
-
         UtilFunctions.navigator(context, MainScreen());
       }
     });

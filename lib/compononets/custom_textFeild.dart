@@ -5,13 +5,13 @@ import 'package:food_app/utils/app_colors.dart';
 class CustomTextFeild extends StatelessWidget {
   CustomTextFeild({
     Key? key,
-    required this.hint,
+    this.hint,
     required this.controller,
     this.widget,
     this.align = TextAlign.start,
   }) : super(key: key);
 
-  final String hint;
+  final String? hint;
   final TextEditingController controller;
   final Widget? widget;
   final TextAlign align;

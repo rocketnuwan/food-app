@@ -22,11 +22,4 @@ class UserModel {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
-
-  // UserModel.fromMap(Map map) {
-  //   uid = map['uid'];
-  //   phoneNo = map['phone'];
-  //   name = map['name'];
-  //   email = map['email'];
-  // }
 }

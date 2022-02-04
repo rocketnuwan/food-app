@@ -1,45 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/compononets/custom_svg.dart';
 import 'package:food_app/compononets/custom_text.dart';
+import 'package:food_app/providers/home/category_provider.dart';
 import 'package:food_app/utils/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({
     Key? key,
-    
   }) : super(key: key);
-
-  
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        physics: BouncingScrollPhysics(),
-        child: Row(
-          children: [
-            CategoryTile(catogeryName: "All",svgName: "food.svg",),
-            CategoryTile(catogeryName: "Pizza",svgName: "pizza.svg",),
-            CategoryTile(catogeryName: "Beverages",svgName: "drink.svg",),
-            CategoryTile(catogeryName: "Asian",svgName: "rice-cracker.svg",),
-            CategoryTile(catogeryName: "Pizza",svgName: "pizza.svg",),
-            CategoryTile(catogeryName: "Beverages",svgName: "drink.svg",),
-            CategoryTile(catogeryName: "Asian",svgName: "rice-cracker.svg",),
-            
-          ],
-        ),
-      ),
+          scrollDirection: Axis.horizontal,
+          physics: BouncingScrollPhysics(),
+          child: Consumer<CategoryProvider>(
+            builder: (context, value, child) {
+              return Row(
+                children: [
+                  for (var i = 0; i < value.catlist.length; i++)
+                    CategoryTile(
+                      catogeryName: value.catlist[i].category,
+                      svgName: value.catlist[i].svgName,
+                    ),
+                ],
+              );
+            },
+          )),
     );
   }
 }
 
 class CategoryTile extends StatefulWidget {
-  const CategoryTile({
-    Key? key,
-    required this.catogeryName,
-    required this.svgName
-  }) : super(key: key);
+  const CategoryTile(
+      {Key? key, required this.catogeryName, required this.svgName})
+      : super(key: key);
 
   final String svgName;
   final String catogeryName;
@@ -56,9 +53,9 @@ class _CategoryTileState extends State<CategoryTile> {
       padding: const EdgeInsets.only(left: 10),
       child: InkWell(
         splashColor: mainBGcolor,
-        onTap: (){
+        onTap: () {
           setState(() {
-            isSelected=!isSelected;
+            isSelected = !isSelected;
           });
         },
         child: Column(
@@ -73,11 +70,18 @@ class _CategoryTileState extends State<CategoryTile> {
                 color: isSelected ? korange : kwhite,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: CustomSVG(image: widget.svgName,
-              color: isSelected ? kwhite : greyColor,),
+              child: CustomSVG(
+                image: widget.svgName,
+                color: isSelected ? kwhite : greyColor,
+              ),
             ),
-            SizedBox(height: 4,),
-            CustomText(text: widget.catogeryName,fontSize: 13,)
+            SizedBox(
+              height: 4,
+            ),
+            CustomText(
+              text: widget.catogeryName,
+              fontSize: 13,
+            )
           ],
         ),
       ),

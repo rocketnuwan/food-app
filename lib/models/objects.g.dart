@@ -6,6 +6,20 @@ part of objects;
 // JsonSerializableGenerator
 // **************************************************************************
 
+CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
+    CategoryModel(
+      id: json['id'] as String,
+      svgName: json['svgName'] as String? ?? '',
+      category: json['category'] as String,
+    );
+
+Map<String, dynamic> _$CategoryModelToJson(CategoryModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'svgName': instance.svgName,
+      'category': instance.category,
+    };
+
 AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
       addressString: json['addressString'] as String,
       latitude: (json['latitude'] as num).toDouble(),
