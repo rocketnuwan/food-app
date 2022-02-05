@@ -230,7 +230,7 @@ class _AddReasturentState extends State<AddReasturent> {
                             ? CustomLorder()
                             : CustomButton(
                                 windowSize: windowSize,
-                                name: "Sign Up",
+                                name: "ADD NEW REASTURENT",
                                 onPress: () async {
                                   value.addReasturent(context);
                                 },

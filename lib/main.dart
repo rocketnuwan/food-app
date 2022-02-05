@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/providers/auth/login_provider.dart';
 import 'package:food_app/providers/auth/registration_provider.dart';
 import 'package:food_app/providers/home/category_provider.dart';
+import 'package:food_app/providers/home/product_provider.dart';
 import 'package:food_app/providers/home/reasturent_provider.dart';
 import 'package:food_app/providers/user_provider.dart';
 import 'package:food_app/screens/main_screens/cart_sceen/cart_screen.dart';
@@ -33,6 +34,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => ReasturentProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
         ),
       ],
       child: Myapp(),
